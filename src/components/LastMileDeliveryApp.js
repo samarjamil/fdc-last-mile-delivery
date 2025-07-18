@@ -1,4 +1,169 @@
-﻿import React, { useState, useEffect } from 'react';
+﻿const renderPickingSorting = () => (
+    <div className="space-y-6">
+        <div className="flex justify-between items-center">
+            <h2 className="text-2xl font-bold">Data Processing & Order Preparation</h2>
+            <div className="flex space-x-3">
+                <button className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 flex items-center">
+                    <SortAsc className="h-4 w-4 mr-2" />
+                    Auto Process Data
+                </button>
+                <button className="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 flex items-center">
+                    <CheckCircle className="h-4 w-4 mr-2" />
+                    Validate All
+                </button>
+            </div>
+        </div>
+
+        {/* Data Processing Pipeline */}
+        <div className="bg-white p-6 rounded-lg shadow-sm border">
+            <h3 className="text-lg font-semibold mb-4">Data Processing Pipeline</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="text-center">
+                    <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <Download className="h-8 w-8 text-blue-600" />
+                    </div>
+                    <h4 className="font-medium">Data Extraction</h4>
+                    <p className="text-sm text-gray-600 mt-1">Pull orders from external APIs</p>
+                    <div className="mt-2">
+                        <StatusBadge status="Completed" />
+                    </div>
+                </div>
+
+                <div className="text-center">
+                    <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <Edit className="h-8 w-8 text-yellow-600" />
+                    </div>
+                    <h4 className="font-medium">Data Cleaning</h4>
+                    <p className="text-sm text-gray-600 mt-1">Standardize and validate data</p>
+                    <div className="mt-2">
+                        <StatusBadge status="In Progress" />
+                    </div>
+                </div>
+
+                <div className="text-center">
+                    <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <CheckCircle className="h-8 w-8 text-green-600" />
+                    </div>
+                    <h4 className="font-medium">Route Preparation</h4>
+                    <p className="text-sm text-gray-600 mt-1">Prepare data for routing</p>
+                    <div className="mt-2">
+                        <StatusBadge status="Ready for Routing" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {/* Data Quality Metrics */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-white p-6 rounded-lg shadow-sm border">
+                <h3 className="text-lg font-semibold mb-4">Data Quality Assessment</h3>
+                <div className="space-y-4">
+                    <div>
+                        <div className="flex justify-between mb-2">
+                            <span className="text-sm font-medium">Address Validation</span>
+                            <span className="text-sm text-green-600">95%</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                            <div className="bg-green-600 h-2 rounded-full" style={{ width: '95%' }}></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div className="flex justify-between mb-2">
+                            <span className="text-sm font-medium">Contact Information</span>
+                            <span className="text-sm text-blue-600">88%</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                            <div className="bg-blue-600 h-2 rounded-full" style={{ width: '88%' }}></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div className="flex justify-between mb-2">
+                            <span className="text-sm font-medium">Product Details</span>
+                            <span className="text-sm text-purple-600">92%</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                            <div className="bg-purple-600 h-2 rounded-full" style={{ width: '92%' }}></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-sm border">
+                <h3 className="text-lg font-semibold mb-4">Processing Status</h3>
+                <div className="space-y-4">
+                    <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                        <div className="flex items-center">
+                            <CheckCircle className="h-5 w-5 text-green-600 mr-2" />
+                            <span className="text-sm font-medium">Validated Orders</span>
+                        </div>
+                        <span className="text-sm text-green-600">189 orders processed</span>
+                    </div>
+                    <div className="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
+                        <div className="flex items-center">
+                            <Clock className="h-5 w-5 text-yellow-600 mr-2" />
+                            <span className="text-sm font-medium">Under Review</span>
+                        </div>
+                        <span className="text-sm text-yellow-600">23 orders pending</span>
+                    </div>
+                    <div className="flex items-center justify-between p-3 bg-red-50 rounded-lg">
+                        <div className="flex items-center">
+                            <AlertCircle className="h-5 w-5 text-red-600 mr-2" />
+                            <span className="text-sm font-medium">Validation Errors</span>
+                        </div>
+                        <span className="text-sm text-red-600">5 orders failed</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {/* Orders Ready for Routing */}
+        <div className="bg-white p-6 rounded-lg shadow-sm border">
+            <h3 className="text-lg font-semibold mb-4">Orders Ready for Route Optimization</h3>
+            <div className="overflow-x-auto">
+                <table className="min-w-full">
+                    <thead className="bg-gray-50">
+                        <tr>
+                            <th className="text-left py-3 px-4 font-medium">Order ID</th>
+                            <th className="text-left py-3 px-4 font-medium">Client</th>
+                            <th className="text-left py-3 px-4 font-medium">API Source</th>
+                            <th className="text-left py-3 px-4 font-medium">Data Quality</th>
+                            <th className="text-left py-3 px-4 font-medium">Status</th>
+                            <th className="text-left py-3 px-4 font-medium">Destination</th>
+                            <th className="text-left py-3 px-4 font-medium">Items</th>
+                            <th className="text-left py-3 px-4 font-medium">Priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {mockOrders.map(order => (
+                            <tr key={order.id} className="border-b hover:bg-gray-50">
+                                <td className="py-3 px-4 font-medium">{order.id}</td>
+                                <td className="py-3 px-4">{order.client}</td>
+                                <td className="py-3 px-4 text-sm text-blue-600">{order.apiSource}</td>
+                                <td className="py-3 px-4">
+                                    <div className="flex items-center">
+                                        <div className="w-12 bg-gray-200 rounded-full h-2 mr-2">
+                                            <div
+                                                className="bg-green-600 h-2 rounded-full"
+                                                style={{ width: `${order.dataQuality}%` }}
+                                            ></div>
+                                        </div>
+                                        <span className="text-xs text-gray-600">{order.dataQuality}%</span>
+                                    </div>
+                                </td>
+                                <td className="py-3 px-4"><StatusBadge status={order.status} /></td>
+                                <td className="py-3 px-4">{order.destination}</td>
+                                <td className="py-3 px-4">{order.items}</td>
+                                <td className="py-3 px-4">
+                                    <StatusBadge status={order.priority} />
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+); import React, { useState, useEffect } from 'react';
 import {
     Truck,
     Package,
@@ -62,18 +227,91 @@ const LastMileDeliveryApp = () => {
     });
     const [selectedVehicle, setSelectedVehicle] = useState(null);
     const [workflowStep, setWorkflowStep] = useState(1);
+    const [apiIntegration, setApiIntegration] = useState({
+        status: 'idle',
+        connectedSystems: [],
+        lastSync: null,
+        ordersImported: 0,
+        errors: []
+    });
+    const [driverNotifications, setDriverNotifications] = useState([]);
+    const [notificationModal, setNotificationModal] = useState(false);
+    const [selectedDriver, setSelectedDriver] = useState(null);
 
-    // Mock data for Pennsylvania, New York, New Jersey operations
+    // Enhanced mock data with API integration status
     const mockPickups = [
-        { id: 'PU-001', client: 'TechCorp Solutions', status: 'Pending', items: 45, weight: 125.5, location: 'Philadelphia Distribution Center' },
-        { id: 'PU-002', client: 'Global Electronics', status: 'Completed', items: 32, weight: 89.2, location: 'Newark Fulfillment Hub' },
-        { id: 'PU-003', client: 'MegaStore Chain', status: 'In Progress', items: 67, weight: 198.7, location: 'Brooklyn Warehouse' }
+        {
+            id: 'PU-001',
+            client: 'TechCorp Solutions',
+            status: 'API Synced',
+            items: 45,
+            weight: 125.5,
+            location: 'Philadelphia Distribution Center',
+            apiSource: 'TechCorp ERP',
+            syncTime: '2025-01-20 09:15:00',
+            externalOrderId: 'TC-ORD-8847'
+        },
+        {
+            id: 'PU-002',
+            client: 'Global Electronics',
+            status: 'Manual Entry',
+            items: 32,
+            weight: 89.2,
+            location: 'Newark Fulfillment Hub',
+            apiSource: 'Manual',
+            syncTime: '2025-01-20 10:30:00',
+            externalOrderId: 'MAN-002'
+        },
+        {
+            id: 'PU-003',
+            client: 'MegaStore Chain',
+            status: 'API Pending',
+            items: 67,
+            weight: 198.7,
+            location: 'Brooklyn Warehouse',
+            apiSource: 'MegaStore API',
+            syncTime: null,
+            externalOrderId: 'MS-REQ-4501'
+        }
     ];
 
     const mockOrders = [
-        { id: 'ORD-001', client: 'TechCorp Solutions', status: 'Ingested', items: 12, weight: 45.5, destination: 'Philadelphia, PA - Center City', priority: 'High' },
-        { id: 'ORD-002', client: 'Global Electronics', status: 'Sorted', items: 8, weight: 32.1, destination: 'Newark, NJ - Downtown', priority: 'Medium' },
-        { id: 'ORD-003', client: 'MegaStore Chain', status: 'Picked', items: 24, weight: 78.3, destination: 'Brooklyn, NY - Park Slope', priority: 'Low' }
+        {
+            id: 'ORD-001',
+            client: 'TechCorp Solutions',
+            status: 'API Imported',
+            items: 12,
+            weight: 45.5,
+            destination: 'Philadelphia, PA - Center City',
+            priority: 'High',
+            apiSource: 'TechCorp ERP',
+            dataQuality: 95,
+            validationStatus: 'Validated'
+        },
+        {
+            id: 'ORD-002',
+            client: 'Global Electronics',
+            status: 'Data Cleaned',
+            items: 8,
+            weight: 32.1,
+            destination: 'Newark, NJ - Downtown',
+            priority: 'Medium',
+            apiSource: 'Global Electronics API',
+            dataQuality: 88,
+            validationStatus: 'Needs Review'
+        },
+        {
+            id: 'ORD-003',
+            client: 'MegaStore Chain',
+            status: 'Ready for Routing',
+            items: 24,
+            weight: 78.3,
+            destination: 'Brooklyn, NY - Park Slope',
+            priority: 'Low',
+            apiSource: 'MegaStore WMS',
+            dataQuality: 92,
+            validationStatus: 'Validated'
+        }
     ];
 
     const mockRoutes = [
@@ -126,6 +364,63 @@ const LastMileDeliveryApp = () => {
         }
     };
 
+    const simulateApiIntegration = () => {
+        setApiIntegration({
+            status: 'connecting',
+            connectedSystems: [],
+            lastSync: null,
+            ordersImported: 0,
+            errors: []
+        });
+
+        const interval = setInterval(() => {
+            setApiIntegration(prev => {
+                const progress = Math.min(prev.ordersImported + Math.random() * 50, 247);
+                const systems = [
+                    'TechCorp ERP',
+                    'Global Electronics API',
+                    'MegaStore WMS',
+                    'Brooklyn Warehouse System'
+                ].slice(0, Math.floor(progress / 60));
+
+                if (progress >= 247) {
+                    clearInterval(interval);
+                    return {
+                        status: 'completed',
+                        connectedSystems: systems,
+                        lastSync: new Date().toLocaleTimeString(),
+                        ordersImported: 247,
+                        errors: ['MegaStore API: Rate limit exceeded (resolved)']
+                    };
+                }
+
+                return {
+                    ...prev,
+                    status: 'syncing',
+                    connectedSystems: systems,
+                    ordersImported: Math.floor(progress)
+                };
+            });
+        }, 300);
+    };
+
+    const sendDriverNotification = (driverId, message, type = 'info') => {
+        const notification = {
+            id: Date.now(),
+            driverId,
+            message,
+            type,
+            timestamp: new Date().toLocaleTimeString(),
+            read: false
+        };
+        setDriverNotifications(prev => [notification, ...prev]);
+
+        // Simulate real-time update to driver app
+        if (currentScreen === 'driver-app') {
+            setNotifications(prev => [notification, ...prev.slice(0, 4)]);
+        }
+    };
+
     const simulateRouteOptimization = () => {
         setRouteOptimization({
             status: 'optimizing',
@@ -165,6 +460,12 @@ const LastMileDeliveryApp = () => {
             'Pending': 'bg-yellow-100 text-yellow-800',
             'Completed': 'bg-green-100 text-green-800',
             'In Progress': 'bg-blue-100 text-blue-800',
+            'API Synced': 'bg-green-100 text-green-800',
+            'API Pending': 'bg-yellow-100 text-yellow-800',
+            'Manual Entry': 'bg-blue-100 text-blue-800',
+            'API Imported': 'bg-purple-100 text-purple-800',
+            'Data Cleaned': 'bg-indigo-100 text-indigo-800',
+            'Ready for Routing': 'bg-cyan-100 text-cyan-800',
             'Ingested': 'bg-purple-100 text-purple-800',
             'Sorted': 'bg-indigo-100 text-indigo-800',
             'Picked': 'bg-cyan-100 text-cyan-800',
@@ -175,7 +476,9 @@ const LastMileDeliveryApp = () => {
             'Failed': 'bg-red-100 text-red-800',
             'High': 'bg-red-100 text-red-800',
             'Medium': 'bg-yellow-100 text-yellow-800',
-            'Low': 'bg-green-100 text-green-800'
+            'Low': 'bg-green-100 text-green-800',
+            'Validated': 'bg-green-100 text-green-800',
+            'Needs Review': 'bg-yellow-100 text-yellow-800'
         };
         return (
             <span className={`px-2 py-1 rounded-full text-xs font-medium ${colors[status] || 'bg-gray-100 text-gray-800'}`}>
@@ -334,15 +637,96 @@ const LastMileDeliveryApp = () => {
     const renderPickupsIngestion = () => (
         <div className="space-y-6">
             <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-bold">Pickups & Order Ingestion</h2>
-                <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center">
-                    <Plus className="h-4 w-4 mr-2" />
-                    Schedule Pickup
-                </button>
+                <h2 className="text-2xl font-bold">API Integration & Order Ingestion</h2>
+                <div className="flex space-x-3">
+                    <button
+                        onClick={simulateApiIntegration}
+                        className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 flex items-center"
+                    >
+                        <RefreshCw className="h-4 w-4 mr-2" />
+                        Sync External APIs
+                    </button>
+                    <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center">
+                        <Plus className="h-4 w-4 mr-2" />
+                        Manual Entry
+                    </button>
+                </div>
             </div>
 
+            {/* API Integration Status */}
+            <div className="bg-gradient-to-br from-purple-50 to-indigo-100 p-6 rounded-lg shadow-sm border">
+                <h3 className="text-lg font-semibold mb-4 flex items-center">
+                    <Activity className="h-5 w-5 mr-2 text-purple-600" />
+                    External System Integration
+                </h3>
+
+                {apiIntegration.status !== 'idle' && (
+                    <div className="space-y-4">
+                        <div className="flex items-center justify-between">
+                            <span className="text-sm font-medium">Syncing from external systems...</span>
+                            <span className="text-sm text-gray-600">{apiIntegration.ordersImported} orders imported</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                            <div
+                                className="bg-purple-600 h-2 rounded-full transition-all duration-300"
+                                style={{ width: `${(apiIntegration.ordersImported / 247) * 100}%` }}
+                            ></div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                            <div className="bg-white p-4 rounded-lg">
+                                <div className="flex items-center justify-between">
+                                    <span className="text-sm text-gray-600">Connected Systems</span>
+                                    <Activity className="h-4 w-4 text-green-600" />
+                                </div>
+                                <p className="text-xl font-bold text-green-600">{apiIntegration.connectedSystems.length}</p>
+                            </div>
+                            <div className="bg-white p-4 rounded-lg">
+                                <div className="flex items-center justify-between">
+                                    <span className="text-sm text-gray-600">Orders Imported</span>
+                                    <Package className="h-4 w-4 text-blue-600" />
+                                </div>
+                                <p className="text-xl font-bold text-blue-600">{apiIntegration.ordersImported}</p>
+                            </div>
+                            <div className="bg-white p-4 rounded-lg">
+                                <div className="flex items-center justify-between">
+                                    <span className="text-sm text-gray-600">Last Sync</span>
+                                    <Clock className="h-4 w-4 text-purple-600" />
+                                </div>
+                                <p className="text-xl font-bold text-purple-600">{apiIntegration.lastSync || 'Never'}</p>
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </div>
+
+            {/* Connected Systems */}
             <div className="bg-white p-6 rounded-lg shadow-sm border">
-                <h3 className="text-lg font-semibold mb-4">Pending Pickup Requests</h3>
+                <h3 className="text-lg font-semibold mb-4">External System Connections</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {[
+                        { name: 'TechCorp ERP', status: 'Connected', orders: 89, lastSync: '2 min ago' },
+                        { name: 'Global Electronics API', status: 'Connected', orders: 45, lastSync: '5 min ago' },
+                        { name: 'MegaStore WMS', status: 'Syncing', orders: 113, lastSync: 'In progress' },
+                        { name: 'Brooklyn Warehouse System', status: 'Connected', orders: 67, lastSync: '1 min ago' }
+                    ].map((system, index) => (
+                        <div key={index} className="border rounded-lg p-4">
+                            <div className="flex items-center justify-between mb-2">
+                                <h4 className="font-medium">{system.name}</h4>
+                                <StatusBadge status={system.status} />
+                            </div>
+                            <div className="text-sm text-gray-600">
+                                <p>Orders: {system.orders}</p>
+                                <p>Last sync: {system.lastSync}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            {/* Pickup Requests with API Source */}
+            <div className="bg-white p-6 rounded-lg shadow-sm border">
+                <h3 className="text-lg font-semibold mb-4">Pickup Requests & Data Sources</h3>
                 <div className="space-y-4">
                     {mockPickups.map(pickup => (
                         <div key={pickup.id} className="border rounded-lg p-4 hover:bg-gray-50">
@@ -355,11 +739,16 @@ const LastMileDeliveryApp = () => {
                                         <h4 className="font-medium">{pickup.id}</h4>
                                         <p className="text-sm text-gray-600">{pickup.client}</p>
                                         <p className="text-xs text-gray-500">{pickup.location}</p>
+                                        <p className="text-xs text-blue-600">Source: {pickup.apiSource}</p>
                                     </div>
                                 </div>
                                 <div className="text-right">
                                     <StatusBadge status={pickup.status} />
                                     <p className="text-sm text-gray-600 mt-1">{pickup.items} items • {pickup.weight}kg</p>
+                                    <p className="text-xs text-gray-500">
+                                        {pickup.syncTime ? `Synced: ${pickup.syncTime}` : 'Pending sync'}
+                                    </p>
+                                    <p className="text-xs text-gray-500">Ext ID: {pickup.externalOrderId}</p>
                                 </div>
                             </div>
                         </div>
@@ -367,20 +756,25 @@ const LastMileDeliveryApp = () => {
                 </div>
             </div>
 
+            {/* Data Quality Dashboard */}
             <div className="bg-white p-6 rounded-lg shadow-sm border">
-                <h3 className="text-lg font-semibold mb-4">Order Ingestion Status</h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className="text-center p-4 bg-blue-50 rounded-lg">
-                        <div className="text-2xl font-bold text-blue-600">1,247</div>
-                        <div className="text-sm text-gray-600">Orders Ingested</div>
-                    </div>
+                <h3 className="text-lg font-semibold mb-4">Data Quality & Validation</h3>
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <div className="text-center p-4 bg-green-50 rounded-lg">
-                        <div className="text-2xl font-bold text-green-600">1,189</div>
-                        <div className="text-sm text-gray-600">Successfully Processed</div>
+                        <div className="text-2xl font-bold text-green-600">89%</div>
+                        <div className="text-sm text-gray-600">Data Quality Score</div>
                     </div>
-                    <div className="text-center p-4 bg-red-50 rounded-lg">
-                        <div className="text-2xl font-bold text-red-600">58</div>
-                        <div className="text-sm text-gray-600">Requires Attention</div>
+                    <div className="text-center p-4 bg-blue-50 rounded-lg">
+                        <div className="text-2xl font-bold text-blue-600">247</div>
+                        <div className="text-sm text-gray-600">Orders Imported</div>
+                    </div>
+                    <div className="text-center p-4 bg-yellow-50 rounded-lg">
+                        <div className="text-2xl font-bold text-yellow-600">23</div>
+                        <div className="text-sm text-gray-600">Requiring Review</div>
+                    </div>
+                    <div className="text-center p-4 bg-purple-50 rounded-lg">
+                        <div className="text-2xl font-bold text-purple-600">4</div>
+                        <div className="text-sm text-gray-600">API Connections</div>
                     </div>
                 </div>
             </div>
@@ -825,14 +1219,9 @@ const LastMileDeliveryApp = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {[1, 2, 3, 4, 5, 6].map(index => (
                         <div key={index} className="border rounded-lg p-4">
-                            {/*<div className="aspect-w-16 aspect-h-9 bg-gray-100 rounded-lg mb-3 flex items-center justify-center">*/}
-                            {/*    <Camera className="h-8 w-8 text-gray-400" />*/}
-                            {/*</div>*/}
-
-                            <div style={{ aspectRatio: '16/9' }} className="bg-gray-100 rounded-lg mb-3 flex items-center justify-center">
+                            <div className="aspect-w-16 aspect-h-9 bg-gray-100 rounded-lg mb-3 flex items-center justify-center">
                                 <Camera className="h-8 w-8 text-gray-400" />
                             </div>
-
                             <div className="space-y-2">
                                 <p className="font-medium">ORD-00{index}</p>
                                 <p className="text-sm text-gray-600">Driver: Michael Johnson</p>
